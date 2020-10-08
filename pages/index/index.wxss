@@ -16,6 +16,15 @@
   color: #aaa;
 }
 
+.user_no {
+  margin-top: 50px;
+}
+
+.table {
+  clear: both;
+  display: block;
+}
+
 .usermotto {
-  margin-top: 200px;
+  margin-top: 50px;
 }

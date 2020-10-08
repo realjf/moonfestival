@@ -21,7 +21,12 @@ Page({
     time: '',
     timer: '',
     timer2: '',  // 用来每个一段时间自动刷新一次定位
-    canClick: true
+    canClick: true,
+    mypoi: {
+      latitude: '24.589201',
+      longitude: '118.107086'
+    }, // 签到地点经纬度
+    distance: '', // 与签到地址距离
   },
 
   getAddress(e) {
@@ -52,14 +57,21 @@ Page({
           iconPath: '../../images/zcxj/myPosition.png', // 图标路径
           width: 21,
           height: 28,
-          // callout: { //在markers上展示地址名称，根据需求是否需要
-          //   content: res.address,
-          //   color: '#000',
-          //   display: 'ALWAYS'
-          // }
-        });
+          callout: { //在markers上展示地址名称，根据需求是否需要
+            content: res.address,
+            color: '#000',
+            display: 'ALWAYS'
+          }
+        }); that
+
+        // 计算两点间距离
+        var dist = util.getDistance(res.location.lat, res.location.lng, that.data.mypoi.latitude, that.data.mypoi.longitude);
+        // 转化为单位m
+        dist = dist * 1000;
+
         that.setData({ // 设置markers属性和地图位置poi，将结果在地图展示
           markers: mks,
+          distance: dist,
           poi: {
             latitude: res.location.lat,
             longitude: res.location.lng
@@ -100,7 +112,6 @@ Page({
     })
     console.log('用户点击了签到')
 
-
     var that = this
     var nowTime = util.formatTime(new Date())
     wx.showModal({
@@ -130,13 +141,25 @@ Page({
     console.log(app.globalData)
     // debugger
     // 要在这里给 patrolForm 补充其他的参数
-    patrolForm.checkaddress = this.data.addressName
+    patrolForm.checkaddress = this.data.addressName != null ? this.data.addressName : ""
     patrolForm.searchtime = util.formatTime(new Date())
     // 应该先判断用户有没有登录，没登录就授权登录
     patrolForm.searchuser = app.globalData.user ? app.globalData.user.UserName : app.globalData.userInfo.nickName
     console.log("传给后台的 searchuser：", patrolForm.searchuser)
     // 拼接："经度,纬度"
     patrolForm.latandlon = this.data.poi.longitude + "," + this.data.poi.latitude
+
+    // 计算两点间距离
+    var dist = util.getDistance(this.data.poi.latitude, this.data.poi.longitude, this.data.mypoi.latitude, this.data.mypoi.longitude);
+    if(dist > 0.1){
+        // 大于100m，不让签到
+      wx.showToast({
+        title: '失败，超出范围',
+        icon: 'success',
+        duration: 3000
+      })
+      return;
+    }
 
 
     console.log(patrolForm)

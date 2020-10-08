@@ -37,7 +37,13 @@ App({
   },
   globalData: {
     userInfo: null,
-    patrolForm: null,
+    patrolForm: {
+      checkaddress: "",
+      searchtime: 0,
+      searchuser: "",
+      latandlon: "",
+      img_arr1: []
+    },
 
     // 实例化API核心类
     qqmapsdk: new QQMapWX({

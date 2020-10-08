@@ -1,13 +1,13 @@
 {
   "pages": [
-    "pages/location/index",
     "pages/index/index",
+    "pages/location/index",
     "pages/logs/logs"
   ],
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#3db0fc",
-    "navigationBarTitleText": "WeXin",
+    "navigationBarTitleText": "中秋晚宴",
     "navigationBarTextStyle": "white"
   },
   "style": "v2",

@@ -111,3 +111,20 @@ Page{
   color: #333333;
   line-height: 35rpx;
 }
+ .whitePositionPanel .signAddress {
+  font-family: FZLTZHK--GBK1-0;
+	font-size: 30rpx;
+  /* line-height: 35rpx; */
+  display: flex;
+  clear:both;
+  align-items: center;
+  margin-bottom: 10rpx;
+  position: absolute;
+}
+.whitePositionPanel .distance {
+  font-family: FZLTZHK--GBK1-0;
+	font-size: 30rpx;
+  bottom: 80rpx;
+  align-items: center;
+  position: absolute;
+}

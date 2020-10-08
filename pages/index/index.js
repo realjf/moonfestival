@@ -4,15 +4,38 @@ const app = getApp()
 
 Page({
   data: {
-    motto: 'Hello World',
+    motto: '打卡签到',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    userno: '',
+    usernofound: '未找到',
+    userArray: {
+      "realjf": 1,
+      "real": 2,
+      "neyo": 3,
+      "林晓滨": 1,
+      "陈杰峰": 4,
+      "陈敏": 2
+    }
+  },
+  // 获取桌号
+  formSubmit: function(e){
+    console.log(e.detail);
+    if(this.data.userArray[e.detail.value.username] != undefined){
+      this.setData({
+        userno: this.data.userArray[e.detail.value.username],
+      })
+    }else{
+      this.setData({
+        userno: this.data.usernofound,
+      })
+    }
   },
   //事件处理函数
   bindViewTap: function() {
     wx.navigateTo({
-      url: '../logs/logs'
+      url: '../location/index'
     })
   },
   onLoad: function () {
